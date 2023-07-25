@@ -1,0 +1,25 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /lms-attendance-service
+spring:
+  application:
+    name: lms-attendance-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  config:
+    import: optional:configserver:http://localhost:5555
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/lms
+          jwk-set-uri: http://localhost:8080/realms/lms/protocol/openid-connect/certs
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
